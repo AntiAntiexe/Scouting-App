@@ -107,12 +107,12 @@ class _HomePageState extends State<HomePage> {
             },
             icon: pageIndex == 1
                 ? const Icon(
-                    Icons.work_rounded,
+                    Icons.camera_alt_rounded,
                     color: Colors.white,
                     size: 35,
                   )
                 : const Icon(
-                    Icons.work_outline_outlined,
+                    Icons.camera_alt_outlined,
                     color: Colors.white,
                     size: 35,
                   ),
@@ -126,12 +126,12 @@ class _HomePageState extends State<HomePage> {
             },
             icon: pageIndex == 2
                 ? const Icon(
-                    Icons.widgets_rounded,
+                    Icons.games_rounded,
                     color: Colors.white,
                     size: 35,
                   )
                 : const Icon(
-                    Icons.widgets_outlined,
+                    Icons.games_outlined,
                     color: Colors.white,
                     size: 35,
                   ),
