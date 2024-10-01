@@ -145,12 +145,12 @@ class _HomePageState extends State<HomePage> {
             },
             icon: pageIndex == 3
                 ? const Icon(
-                    Icons.person,
+                    Icons.list,
                     color: Colors.white,
                     size: 35,
                   )
                 : const Icon(
-                    Icons.person_outline,
+                    Icons.list_outlined,
                     color: Colors.white,
                     size: 35,
                   ),
@@ -168,17 +168,21 @@ class main_page extends StatelessWidget {
   Widget build(BuildContext context) {
     return Container(
       color: const Color.fromARGB(255, 80, 80, 80),
-      child: Center(
-        child: Text(
-          "Page Number 1",
-          style: TextStyle(
-            color: const Color.fromARGB(255, 255, 123, 0),
-            fontSize: 45,
-            fontWeight: FontWeight.w500,
-          ),
-        ),
+      child: 
+      Row(
+        children: [
+          SizedBox(width: 20),
+          Text(
+              "Enter Team Information",
+              style: TextStyle(
+                color: const Color.fromARGB(255, 255, 123, 0),
+                fontSize: 35,
+                fontWeight: FontWeight.w500,
+              ),
+            ),
+        ],
       ),
-    );
+      );
   }
 }
 
