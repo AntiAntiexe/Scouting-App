@@ -169,17 +169,83 @@ class main_page extends StatelessWidget {
     return Container(
       color: const Color.fromARGB(255, 80, 80, 80),
       child: 
-      Row(
+      Column(
         children: [
-          SizedBox(width: 20),
-          Text(
-              "Enter Team Information",
-              style: TextStyle(
-                color: const Color.fromARGB(255, 255, 123, 0),
-                fontSize: 35,
-                fontWeight: FontWeight.w500,
+          Row(
+            children: [
+              SizedBox(width: 20),
+              Text(
+                  "Enter Team Information",
+                  style: TextStyle(
+                    color: const Color.fromARGB(255, 255, 123, 0),
+                    fontSize: 35,
+                    fontWeight: FontWeight.w500,
+                  ),
+                  
+                ),
+              
+            ],
+          ),
+          Row(
+            children: [
+              SizedBox(width: 20),
+              TextField(
+                decoration: InputDecoration(
+                  border: OutlineInputBorder(),
+                  hintText: 'Scout Name',
+                ),
+
               ),
-            ),
+              SizedBox(width: 20),
+              ElevatedButton(
+                onPressed: () {
+                  print('blue button pressed');
+                }, 
+                
+                style: ButtonStyle(
+                    backgroundColor: WidgetStatePropertyAll<Color>(Colors.blue), //const Color.fromARGB(255, 255, 123, 0),
+                    //fontSize: 35,
+                    //fontWeight: FontWeight.w500,  
+                ),
+                
+                
+                child:
+                    Text(
+                      'Blue',
+                      style: TextStyle(
+                        fontSize: 15,
+                        fontWeight: FontWeight.w500,
+                        color: Colors.black,
+                        ),
+                        
+                  ),
+              ),
+              SizedBox(width: 20,),
+              ElevatedButton(
+                onPressed: () {
+                  print('red button pressed');
+                }, 
+                
+                style: ButtonStyle(
+                    backgroundColor: WidgetStatePropertyAll<Color>(Colors.red), //const Color.fromARGB(255, 255, 123, 0),
+                    //fontSize: 35,
+                    //fontWeight: FontWeight.w500,  
+                ),
+                
+                
+                child:
+                    Text(
+                      'Red',
+                      style: TextStyle(
+                        fontSize: 15,
+                        fontWeight: FontWeight.w500,
+                        color: Colors.black,
+                        ),
+                        
+                  ),
+              ),
+            ],
+            )
         ],
       ),
       );
