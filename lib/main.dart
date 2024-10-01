@@ -13,10 +13,10 @@ class MyApp extends StatelessWidget {
     return MaterialApp(
       title: 'Bottom NavBar Demo',
       theme: ThemeData(
-        primaryColor: const Color(0xff2F8D46),
-        splashColor: Colors.transparent,
-        highlightColor: Colors.transparent,
-        hoverColor: Colors.transparent,
+        primaryColor: const Color.fromARGB(255, 255, 123, 0),
+        splashColor: const Color.fromARGB(255, 255, 123, 0),
+        highlightColor: const Color.fromARGB(255, 80, 80, 80),
+        hoverColor: const Color.fromARGB(255, 80, 80, 80),
       ),
       debugShowCheckedModeBanner: false,
       home: const HomePage(),
@@ -44,7 +44,7 @@ class _HomePageState extends State<HomePage> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      backgroundColor: const Color(0xffC4DFCB),
+      backgroundColor: const Color.fromARGB(255, 80, 80, 80),
       appBar: AppBar(
         leading: Icon(
           Icons.menu,
@@ -59,7 +59,7 @@ class _HomePageState extends State<HomePage> {
           ),
         ),
         centerTitle: true,
-        backgroundColor: Colors.white,
+        backgroundColor: const Color.fromARGB(255, 80, 80, 80),
       ),
       body: pages[pageIndex],
       bottomNavigationBar: buildMyNavBar(context),
@@ -167,12 +167,12 @@ class main_page extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Container(
-      color: const Color(0xffC4DFCB),
+      color: const Color.fromARGB(255, 80, 80, 80),
       child: Center(
         child: Text(
           "Page Number 1",
           style: TextStyle(
-            color: Colors.green[900],
+            color: const Color.fromARGB(255, 255, 123, 0),
             fontSize: 45,
             fontWeight: FontWeight.w500,
           ),
@@ -188,12 +188,12 @@ class Page2 extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Container(
-      color: const Color(0xffC4DFCB),
+      color: const Color.fromARGB(255, 80, 80, 80),
       child: Center(
         child: Text(
           "Page Number 2",
           style: TextStyle(
-            color: Colors.green[900],
+            color: const Color.fromARGB(255, 255, 123, 0),
             fontSize: 45,
             fontWeight: FontWeight.w500,
           ),
@@ -209,12 +209,12 @@ class Page3 extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Container(
-      color: const Color(0xffC4DFCB),
+      color: const Color.fromARGB(255, 80, 80, 80),
       child: Center(
         child: Text(
           "Page Number 3",
           style: TextStyle(
-            color: Colors.green[900],
+            color: const Color.fromARGB(255, 255, 123, 0),
             fontSize: 45,
             fontWeight: FontWeight.w500,
           ),
@@ -230,12 +230,12 @@ class Page4 extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Container(
-      color: const Color(0xffC4DFCB),
+      color: const Color.fromARGB(255, 80, 80, 80),
       child: Center(
         child: Text(
           "Page Number 4",
           style: TextStyle(
-            color: Colors.green[900],
+            color: const Color.fromARGB(255, 255, 123, 0),
             fontSize: 45,
             fontWeight: FontWeight.w500,
           ),
