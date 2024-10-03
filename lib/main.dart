@@ -188,96 +188,148 @@ class main_page extends StatelessWidget {
             ],
           ),
 
-          Row(
-            mainAxisAlignment: MainAxisAlignment.spaceAround,
-            children: [
-              SizedBox(width: 20,),
-              Expanded(
-                child: TextField(
-              cursorColor: Colors.black,
-              style: TextStyle(
-                color: Colors.white
-              ),
-              decoration: InputDecoration(
-                filled: false,
-                fillColor: Colors.blueAccent,
-                hintText: 'Input Scout Name',
-                hintStyle: TextStyle(
-                  color: Colors.white,
-                ),
-                focusedBorder: OutlineInputBorder(
-                    borderSide: BorderSide(color: Colors.grey, width: 2.0),
-                ),
-                enabledBorder: OutlineInputBorder(
-                    borderSide: BorderSide(color: Colors.black, width: 2.0),
-                ),
-                border: OutlineInputBorder(
-                  borderRadius: BorderRadius.circular(50)
-                ),
-              ),
-            ),
-            ),
-              
-              
-              SizedBox(width: 20,),
-              Expanded(
-                child: TextField(
-              cursorColor: Colors.black,
-              style: TextStyle(
-                color: Colors.white
-              ),
-              decoration: InputDecoration(
-                filled: false,
-                fillColor: Colors.blueAccent,
-                hintText: 'Input Team Number',
-                hintStyle: TextStyle(
-                  color: Colors.white,
-                ),
-                focusedBorder: OutlineInputBorder(
-                    borderSide: BorderSide(color: Colors.grey, width: 2.0),
-                ),
-                enabledBorder: OutlineInputBorder(
-                    borderSide: BorderSide(color: Colors.black, width: 2.0),
-                ),
-                border: OutlineInputBorder(
-                  borderRadius: BorderRadius.circular(50)
-                ),
-              ),
-            ),
-                ),
-              
-            
-              SizedBox(width: 20,),
-
-              Expanded(
+          Padding(
+            padding: const EdgeInsets.all(8.0),
+            child: Row(
+              mainAxisAlignment: MainAxisAlignment.spaceAround,
+              children: [
                 
-                child: TextField(
-              cursorColor: Colors.black,
-              style: TextStyle(
-                color: Colors.white
+                Expanded(
+                  child: TextField(
+                cursorColor: Colors.black,
+                style: TextStyle(
+                  color: Colors.white
+                ),
+                decoration: InputDecoration(
+                  filled: false,
+                  fillColor: Colors.blueAccent,
+                  hintText: 'Input Scout Name',
+                  hintStyle: TextStyle(
+                    color: Colors.white,
+                  ),
+                  focusedBorder: OutlineInputBorder(
+                      borderSide: BorderSide(color: Colors.grey, width: 2.0),
+                  ),
+                  enabledBorder: OutlineInputBorder(
+                      borderSide: BorderSide(color: Colors.black, width: 2.0),
+                  ),
+                  border: OutlineInputBorder(
+                    borderRadius: BorderRadius.circular(50)
+                  ),
+                ),
               ),
-              decoration: InputDecoration(
-                filled: false,
-                fillColor: Colors.blueAccent,
-                hintText: 'Game Number',
-                hintStyle: TextStyle(
-                  color: Colors.white,
+              ),
+                
+                
+                SizedBox(width: 20,),
+                Expanded(
+                  child: TextField(
+                cursorColor: Colors.black,
+                style: TextStyle(
+                  color: Colors.white
                 ),
-                focusedBorder: OutlineInputBorder(
-                    borderSide: BorderSide(color: Colors.grey, width: 2.0),
-                ),
-                enabledBorder: OutlineInputBorder(
-                    borderSide: BorderSide(color: Colors.black, width: 2.0),
-                ),
-                border: OutlineInputBorder(
-                  borderRadius: BorderRadius.circular(50)
+                decoration: InputDecoration(
+                  filled: false,
+                  fillColor: Colors.blueAccent,
+                  hintText: 'Input Team Number',
+                  hintStyle: TextStyle(
+                    color: Colors.white,
+                  ),
+                  focusedBorder: OutlineInputBorder(
+                      borderSide: BorderSide(color: Colors.grey, width: 2.0),
+                  ),
+                  enabledBorder: OutlineInputBorder(
+                      borderSide: BorderSide(color: Colors.black, width: 2.0),
+                  ),
+                  border: OutlineInputBorder(
+                    borderRadius: BorderRadius.circular(50)
+                  ),
                 ),
               ),
-            ),
-              ),
+                  ),
+                
               
-            ],
+                SizedBox(width: 20,),
+            
+                Expanded(
+                  
+                  child: TextField(
+                cursorColor: Colors.black,
+                style: TextStyle(
+                  color: Colors.white
+                ),
+                decoration: InputDecoration(
+                  filled: false,
+                  fillColor: Colors.blueAccent,
+                  hintText: 'Game Number',
+                  hintStyle: TextStyle(
+                    color: Colors.white,
+                  ),
+                  focusedBorder: OutlineInputBorder(
+                      borderSide: BorderSide(color: Colors.grey, width: 2.0),
+                  ),
+                  enabledBorder: OutlineInputBorder(
+                      borderSide: BorderSide(color: Colors.black, width: 2.0),
+                  ),
+                  border: OutlineInputBorder(
+                    borderRadius: BorderRadius.circular(50)
+                  ),
+                ),
+              ),
+                ),
+                
+              ],
+            ),
           ),
+          Padding(
+            padding: const EdgeInsets.all(8.0),
+            child: Row(
+              children: [
+                Expanded(
+                  child: ElevatedButton(onPressed: () {
+                  print('Red button pressed');
+                }, 
+                style: ButtonStyle(
+                  backgroundColor: MaterialStateProperty.all(Colors.red),
+                ),
+                child: Text(
+                  'Red',
+                  style: TextStyle(
+                    color: const Color.fromARGB(255, 88, 52, 18),
+                  )
+                  ),
+                ),
+                  ),
+              ],
+            ),
+          ),
+          
+          SizedBox(width: 20,),
+          Padding(
+            padding: const EdgeInsets.all(8.0),
+            child: Row(
+              children: [
+                Expanded(
+                  child: ElevatedButton(onPressed: () {
+                  print('Blue button pressed');
+                }, 
+                style: ButtonStyle(
+                  backgroundColor: MaterialStateProperty.all(Colors.blue),
+                ),
+                child: Text(
+                  'Blue',
+                  style: TextStyle(
+                    color: const Color.fromARGB(255, 88, 52, 18),
+                  )
+                  ),
+                ),
+                ),
+              ],
+            ),
+          )
+          
+
+          
         ],
       ),
       );
