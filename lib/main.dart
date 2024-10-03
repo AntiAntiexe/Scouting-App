@@ -63,7 +63,8 @@ class _HomePageState extends State<HomePage> {
         centerTitle: true,
         backgroundColor: const Color.fromARGB(255, 80, 80, 80),
       ),
-      body: pages[pageIndex],
+      body: SafeArea(child: pages[pageIndex],
+      ), 
       bottomNavigationBar: buildMyNavBar(context),
     );
   }
