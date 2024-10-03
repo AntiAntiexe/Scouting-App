@@ -181,71 +181,42 @@ class main_page extends StatelessWidget {
                     fontSize: 35,
                     fontWeight: FontWeight.w500,
                   ),
-                  
                 ),
-              
             ],
           ),
+
           Row(
             children: [
-              SizedBox(width: 20),
-              TextField(
-                decoration: InputDecoration(
-                  border: OutlineInputBorder(),
-                  hintText: 'Scout Name',
-                ),
-
-              ),
-              SizedBox(width: 20),
-              ElevatedButton(
-                onPressed: () {
-                  print('blue button pressed');
-                }, 
-                
-                style: ButtonStyle(
-                    backgroundColor: WidgetStatePropertyAll<Color>(Colors.blue), //const Color.fromARGB(255, 255, 123, 0),
-                    //fontSize: 35,
-                    //fontWeight: FontWeight.w500,  
-                ),
-                
-                
-                child:
-                    Text(
-                      'Blue',
-                      style: TextStyle(
-                        fontSize: 15,
-                        fontWeight: FontWeight.w500,
-                        color: Colors.black,
-                        ),
-                        
-                  ),
-              ),
               SizedBox(width: 20,),
-              ElevatedButton(
-                onPressed: () {
-                  print('red button pressed');
-                }, 
-                
-                style: ButtonStyle(
-                    backgroundColor: WidgetStatePropertyAll<Color>(Colors.red), //const Color.fromARGB(255, 255, 123, 0),
-                    //fontSize: 35,
-                    //fontWeight: FontWeight.w500,  
-                ),
-                
-                
-                child:
-                    Text(
-                      'Red',
-                      style: TextStyle(
-                        fontSize: 15,
-                        fontWeight: FontWeight.w500,
-                        color: Colors.black,
-                        ),
-                        
-                  ),
+
+              SizedBox(
+                width: 200,
+                child: TextField(
+              cursorColor: Colors.black,
+              style: TextStyle(
+                color: Colors.white
               ),
-            ],
+              decoration: InputDecoration(
+                filled: false,
+                fillColor: Colors.blueAccent,
+                hintText: 'Input Scout Name',
+                hintStyle: TextStyle(
+                  color: Colors.white,
+                ),
+                focusedBorder: OutlineInputBorder(
+                    borderSide: BorderSide(color: Colors.grey, width: 2.0),
+                ),
+                enabledBorder: OutlineInputBorder(
+                    borderSide: BorderSide(color: Colors.black, width: 2.0),
+                ),
+                border: OutlineInputBorder(
+                  borderRadius: BorderRadius.circular(50)
+                ),
+              ),
             )
+              )
+            ],
+          ),
         ],
       ),
       );
@@ -314,5 +285,4 @@ class Page4 extends StatelessWidget {
     );
   }
 }
-
 
