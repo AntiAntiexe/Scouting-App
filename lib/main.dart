@@ -192,9 +192,7 @@ class main_page extends StatelessWidget {
             mainAxisAlignment: MainAxisAlignment.spaceAround,
             children: [
               SizedBox(width: 20,),
-
-              SizedBox(
-                width: 200,
+              Expanded(
                 child: TextField(
               cursorColor: Colors.black,
               style: TextStyle(
@@ -217,12 +215,12 @@ class main_page extends StatelessWidget {
                   borderRadius: BorderRadius.circular(50)
                 ),
               ),
-            )
-              ),
+            ),
+            ),
+              
+              
               SizedBox(width: 20,),
-
-              SizedBox(
-                width: 200,
+              Expanded(
                 child: TextField(
               cursorColor: Colors.black,
               style: TextStyle(
@@ -245,11 +243,14 @@ class main_page extends StatelessWidget {
                   borderRadius: BorderRadius.circular(50)
                 ),
               ),
-            )
-              ),
+            ),
+                ),
+              
+            
               SizedBox(width: 20,),
-              SizedBox(
-                width: 200,
+
+              Expanded(
+                
                 child: TextField(
               cursorColor: Colors.black,
               style: TextStyle(
@@ -272,8 +273,9 @@ class main_page extends StatelessWidget {
                   borderRadius: BorderRadius.circular(50)
                 ),
               ),
-            )
-              )
+            ),
+              ),
+              
             ],
           ),
         ],
