@@ -348,10 +348,10 @@ class _main_pageState extends State<main_page> {
                 }, 
                 
                 style: ButtonStyle(
-                  backgroundColor: MaterialStateProperty.all(Colors.blue),
+                  backgroundColor: MaterialStateProperty.all(const Color.fromARGB(255, 255, 123, 0)),
                 ),
                 child: Text(
-                  'Proceed',
+                  'Next',
                   style: TextStyle(
                     color: const Color.fromARGB(255, 88, 52, 18),
                   )
@@ -457,21 +457,20 @@ class NextScreen extends StatelessWidget {
         centerTitle: true,
         backgroundColor: const Color.fromARGB(255, 80, 80, 80),
       ), 
-      body: Center(
-          child: Row(
-            mainAxisAlignment: MainAxisAlignment.spaceAround,
-            children: [
-              Text(
-                  "Starting Position",
-                  style: TextStyle(
-                    color: const Color.fromARGB(255, 255, 123, 0),
-                    fontSize: 35,
-                    fontWeight: FontWeight.w500,
-                  ),
-                ),
-            ],
-          ),
-        ),
+      body: Row(
+        mainAxisAlignment: MainAxisAlignment.center,
+        children: [
+          Text(
+                      "Starting Position",
+                      style: TextStyle(
+                        color: const Color.fromARGB(255, 255, 123, 0),
+                        fontSize: 35,
+                        fontWeight: FontWeight.w500,
+                      ),
+                    ),
+        ],
+      ),
+
       );
   }
 }
