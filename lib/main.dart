@@ -166,7 +166,7 @@ class _HomePageState extends State<HomePage> {
                       ),
               ),
               const Text(
-                "Tele",
+                "Match",
                 style: TextStyle(
                   color: Colors.white,
                   fontSize: 12,
