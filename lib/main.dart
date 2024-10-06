@@ -1,5 +1,4 @@
 import 'package:flutter/material.dart';
-import 'other/globals.dart' as globals;
 
 void main() {
   runApp(const MyApp());
@@ -8,427 +7,98 @@ void main() {
 class MyApp extends StatelessWidget {
   const MyApp({Key? key}) : super(key: key);
 
-  // This widget is the root of your application.
   @override
   Widget build(BuildContext context) {
     return MaterialApp(
-      title: 'Bottom NavBar Demo',
+      title: 'IC Robotics Login',
       theme: ThemeData(
-        primaryColor: const Color.fromARGB(255, 255, 123, 0),
-        splashColor: const Color.fromARGB(255, 255, 123, 0),
-        highlightColor: const Color.fromARGB(255, 80, 80, 80),
-        hoverColor: const Color.fromARGB(255, 80, 80, 80),
+        primaryColor: Colors.orange,
+        scaffoldBackgroundColor: const Color.fromARGB(255, 80, 80, 80),
+        appBarTheme: AppBarTheme(
+          backgroundColor: Colors.orange,
+          foregroundColor: const Color.fromARGB(255, 80, 80, 80),
+        ),
+        textTheme: const TextTheme(
+          bodyLarge: TextStyle(color: Colors.black),
+          bodyMedium: TextStyle(color: Colors.black),
+        ),
       ),
-      debugShowCheckedModeBanner: false,
-      home: const HomePage(),
+      home: LoginPage(),
     );
   }
 }
 
-class HomePage extends StatefulWidget {
-  const HomePage({Key? key}) : super(key: key);
+class LoginPage extends StatelessWidget {
+  LoginPage({Key? key}) : super(key: key);
 
-  @override
-  _HomePageState createState() => _HomePageState();
-}
+  final TextEditingController _nameController = TextEditingController();
+  final TextEditingController _idController = TextEditingController();
+  final TextEditingController _passwordController = TextEditingController();
 
-class _HomePageState extends State<HomePage> {
-  //int pageIndex = 0;
+  void _login(BuildContext context) {
+    String name = _nameController.text.trim();
+    String id = _idController.text.trim();
+    String password = _passwordController.text.trim();
 
-  final pages = [
-    const main_page(),
-    const Page2(),
-    const Page3(),
-    const Page4(),
-  ];
+    // Validation logic
+    if ((name == 'Jared' && id == '1' && password == 'icrobotics5584') || 
+        (name == 'Anton' && id == '2' && password == 'icrobotics5584')) {
+      // Successful login, navigate to the home page
+      Navigator.pushReplacement(
+        context,
+        MaterialPageRoute(builder: (context) => HomePage(name: name)),
+      );
+    } else {
+      // Invalid login attempt
+      ScaffoldMessenger.of(context).showSnackBar(
+        const SnackBar(content: Text('Invalid name, ID, or password')),
+      );
+    }
+  }
 
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      backgroundColor: const Color.fromARGB(255, 80, 80, 80),
-      appBar: AppBar(
-        leading: Icon(
-          Icons.menu,
-          color: Theme.of(context).primaryColor,
-        ),
-        title: Text(
-          "IC Robotics Scouting",
-          style: TextStyle(
-            color: Theme.of(context).primaryColor,
-            fontSize: 25,
-            fontWeight: FontWeight.w600,
-          ),
-        ),
-        centerTitle: true,
-        backgroundColor: const Color.fromARGB(255, 80, 80, 80),
-      ),
-      body: SafeArea(child: pages[globals.pageIndex],
-      ), 
-      bottomNavigationBar: buildMyNavBar(context),
-    );
-  }
-
-  Container buildMyNavBar(BuildContext context) {
-    return Container(
-      height: 80,  // Increased height to fit text
-      decoration: BoxDecoration(
-        color: Theme.of(context).primaryColor,
-        borderRadius: const BorderRadius.only(
-          topLeft: Radius.circular(20),
-          topRight: Radius.circular(20),
-        ),
-      ),
-      child: Row(
-        mainAxisAlignment: MainAxisAlignment.spaceAround,
-        children: [
-          Column(
+      appBar: AppBar(title: const Text('Login')),
+      body: Center(
+        child: Padding(
+          padding: const EdgeInsets.all(16.0),
+          child: Column(
             mainAxisAlignment: MainAxisAlignment.center,
             children: [
-              IconButton(
-                enableFeedback: false,
-                onPressed: () {
-                  setState(() {
-                    globals.pageIndex = 0;
-                  });
-                },
-                icon: globals.pageIndex == 0
-                    ? const Icon(
-                        Icons.home_filled,
-                        color: Colors.white,
-                        size: 35,
-                      )
-                    : const Icon(
-                        Icons.home_outlined,
-                        color: Colors.white,
-                        size: 35,
-                      ),
+              // Add the logo
+              Image.asset(
+                'assets/ICRoboticsLogo.png',
+                height: 225,
+                width: 225,
               ),
-              const Text(
-                "Home",
-                style: TextStyle(
-                  color: Colors.white,
-                  fontSize: 12,
-                ),
+              const SizedBox(height: 20),
+              // Name Input Field
+              TextField(
+                controller: _nameController,
+                decoration: const InputDecoration(labelText: 'Enter Name (Jared or Anton)'),
               ),
-            ],
-          ),
-          Column(
-            mainAxisAlignment: MainAxisAlignment.center,
-            children: [
-              IconButton(
-                enableFeedback: false,
-                onPressed: () {
-                  setState(() {
-                    globals.pageIndex = 1;
-                  });
-                },
-                icon: globals.pageIndex == 1
-                    ? const Icon(
-                        Icons.camera_alt_rounded,
-                        color: Colors.white,
-                        size: 35,
-                      )
-                    : const Icon(
-                        Icons.camera_alt_outlined,
-                        color: Colors.white,
-                        size: 35,
-                      ),
+              const SizedBox(height: 20),
+              // ID Input Field
+              TextField(
+                controller: _idController,
+                decoration: const InputDecoration(labelText: 'Enter ID (1 or 2)'),
+                keyboardType: TextInputType.number,
               ),
-              const Text(
-                "Pit",
-                style: TextStyle(
-                  color: Colors.white,
-                  fontSize: 12,
-                ),
+              const SizedBox(height: 20),
+              // Password Input Field
+              TextField(
+                controller: _passwordController,
+                decoration: const InputDecoration(labelText: 'Password'),
+                obscureText: true,
+              ),
+              const SizedBox(height: 20),
+              // Login Button
+              ElevatedButton(
+                onPressed: () => _login(context),
+                child: const Text('Login'),
               ),
             ],
-          ),
-          Column(
-            mainAxisAlignment: MainAxisAlignment.center,
-            children: [
-              IconButton(
-                enableFeedback: false,
-                onPressed: () {
-                  setState(() {
-                    globals.pageIndex = 2;
-                  });
-                },
-                icon: globals.pageIndex == 2
-                    ? const Icon(
-                        Icons.games_rounded,
-                        color: Colors.white,
-                        size: 35,
-                      )
-                    : const Icon(
-                        Icons.games_outlined,
-                        color: Colors.white,
-                        size: 35,
-                      ),
-              ),
-              const Text(
-                "Match",
-                style: TextStyle(
-                  color: Colors.white,
-                  fontSize: 12,
-                ),
-              ),
-            ],
-          ),
-          Column(
-            mainAxisAlignment: MainAxisAlignment.center,
-            children: [
-              IconButton(
-                enableFeedback: false,
-                onPressed: () {
-                  setState(() {
-                    globals.pageIndex = 3;
-                  });
-                },
-                icon: globals.pageIndex == 3
-                    ? const Icon(
-                        Icons.person,
-                        color: Colors.white,
-                        size: 35,
-                      )
-                    : const Icon(
-                        Icons.person_outline,
-                        color: Colors.white,
-                        size: 35,
-                      ),
-              ),
-              const Text(
-                "Scouts/Data",
-                style: TextStyle(
-                  color: Colors.white,
-                  fontSize: 12,
-                ),
-              ),
-            ],
-          ),
-        ],
-      ),
-    );
-  }
-}
-
-class main_page extends StatefulWidget {
-  const main_page({Key? key}) : super(key: key);
-
-  @override
-  State<main_page> createState() => _main_pageState();
-}
-
-class _main_pageState extends State<main_page> {
-  @override
-  Widget build(BuildContext context) {
-    return Container(
-      color: const Color.fromARGB(255, 80, 80, 80),
-      child: 
-      Column(
-        children: [
-          Row(
-            mainAxisAlignment: MainAxisAlignment.spaceAround,
-            children: [
-              Text(
-                  "Enter Team Information",
-                  style: TextStyle(
-                    color: const Color.fromARGB(255, 255, 123, 0),
-                    fontSize: 35,
-                    fontWeight: FontWeight.w500,
-                  ),
-                ),
-            ],
-          ),
-
-          Padding(
-            padding: const EdgeInsets.all(8.0),
-            child: Row(
-              mainAxisAlignment: MainAxisAlignment.spaceAround,
-              children: [
-                
-                Expanded(
-                  child: TextField(
-                cursorColor: Colors.black,
-                style: TextStyle(
-                  color: Colors.white
-                ),
-                decoration: InputDecoration(
-                  filled: false,
-                  fillColor: Colors.blueAccent,
-                  hintText: 'Input Scout Name',
-                  hintStyle: TextStyle(
-                    color: Colors.white,
-                  ),
-                  focusedBorder: OutlineInputBorder(
-                      borderSide: BorderSide(color: Colors.grey, width: 2.0),
-                  ),
-                  enabledBorder: OutlineInputBorder(
-                      borderSide: BorderSide(color: Colors.black, width: 2.0),
-                  ),
-                  border: OutlineInputBorder(
-                    borderRadius: BorderRadius.circular(50)
-                  ),
-                ),
-              ),
-              ),
-                
-                
-                SizedBox(width: 20,),
-                Expanded(
-                  child: TextField(
-                cursorColor: Colors.black,
-                style: TextStyle(
-                  color: Colors.white
-                ),
-                decoration: InputDecoration(
-                  filled: false,
-                  fillColor: Colors.blueAccent,
-                  hintText: 'Input Team Number',
-                  hintStyle: TextStyle(
-                    color: Colors.white,
-                  ),
-                  focusedBorder: OutlineInputBorder(
-                      borderSide: BorderSide(color: Colors.grey, width: 2.0),
-                  ),
-                  enabledBorder: OutlineInputBorder(
-                      borderSide: BorderSide(color: Colors.black, width: 2.0),
-                  ),
-                  border: OutlineInputBorder(
-                    borderRadius: BorderRadius.circular(50)
-                  ),
-                ),
-              ),
-                  ),
-                
-              
-                SizedBox(width: 20,),
-            
-                Expanded(
-                  
-                  child: TextField(
-                cursorColor: Colors.black,
-                style: TextStyle(
-                  color: Colors.white
-                ),
-                decoration: InputDecoration(
-                  filled: false,
-                  fillColor: Colors.blueAccent,
-                  hintText: 'Game Number',
-                  hintStyle: TextStyle(
-                    color: Colors.white,
-                  ),
-                  focusedBorder: OutlineInputBorder(
-                      borderSide: BorderSide(color: Colors.grey, width: 2.0),
-                  ),
-                  enabledBorder: OutlineInputBorder(
-                      borderSide: BorderSide(color: Colors.black, width: 2.0),
-                  ),
-                  border: OutlineInputBorder(
-                    borderRadius: BorderRadius.circular(50)
-                  ),
-                ),
-              ),
-                ),
-                
-              ],
-            ),
-          ),
-          Padding(
-            padding: const EdgeInsets.all(8.0),
-            child: Row(
-              children: [
-                Expanded(
-                  child: ElevatedButton(onPressed: () {
-                  print('Red button pressed');
-                }, 
-                style: ButtonStyle(
-                  backgroundColor: MaterialStateProperty.all(Colors.red),
-                ),
-                child: Text(
-                  'Red',
-                  style: TextStyle(
-                    color: const Color.fromARGB(255, 88, 52, 18),
-                  )
-                  ),
-                ),
-                  ),
-              ],
-            ),
-          ),
-          
-          SizedBox(width: 20,),
-          Padding(
-            padding: const EdgeInsets.all(8.0),
-            child: Row(
-              children: [
-                Expanded(
-                  child: ElevatedButton(onPressed: () {
-                  print('Blue button pressed');
-                }, 
-                style: ButtonStyle(
-                  backgroundColor: MaterialStateProperty.all(Colors.blue),
-                ),
-                child: Text(
-                  'Blue',
-                  style: TextStyle(
-                    color: const Color.fromARGB(255, 88, 52, 18),
-                  )
-                  ),
-                ),
-                ),
-              ],
-            ),
-          ),
-          Expanded(
-            child: SizedBox(height: 20,),
-            ),
-          
-          Padding(
-            padding: const EdgeInsets.all(8.0),
-            child: Row(
-              children: [
-                Expanded(
-                  child: ElevatedButton(onPressed: () { 
-                    Navigator.push(
-              context,
-              MaterialPageRoute(builder: (context) => const NextScreen()),
-                    );
-                }, 
-                
-                style: ButtonStyle(
-                  backgroundColor: MaterialStateProperty.all(const Color.fromARGB(255, 255, 123, 0)),
-                ),
-                child: Text(
-                  'Next',
-                  style: TextStyle(
-                    color: const Color.fromARGB(255, 88, 52, 18),
-                  )
-                  ),
-                ),
-                ),
-              ],
-            ),
-          )  
-        ],
-      ),
-      );
-  }
-}
-
-class Page2 extends StatelessWidget {
-  const Page2({Key? key}) : super(key: key);
-
-  @override
-  Widget build(BuildContext context) {
-    return Container(
-      color: const Color.fromARGB(255, 80, 80, 80),
-      child: Center(
-        child: Text(
-          "Page Number 2",
-          style: TextStyle(
-            color: const Color.fromARGB(255, 255, 123, 0),
-            fontSize: 45,
-            fontWeight: FontWeight.w500,
           ),
         ),
       ),
@@ -436,91 +106,100 @@ class Page2 extends StatelessWidget {
   }
 }
 
-class Page3 extends StatelessWidget {
-  const Page3({Key? key}) : super(key: key);
+class HomePage extends StatelessWidget {
+  final String name;
 
-  @override
-  Widget build(BuildContext context) {
-    return Container(
-      color: const Color.fromARGB(255, 80, 80, 80),
-      child: Center(
-        child: Text(
-          "Page Number 3",
-          style: TextStyle(
-            color: const Color.fromARGB(255, 255, 123, 0),
-            fontSize: 45,
-            fontWeight: FontWeight.w500,
-          ),
-        ),
-      ),
-    );
-  }
-}
-
-class Page4 extends StatelessWidget {
-  const Page4({Key? key}) : super(key: key);
-
-  @override
-  Widget build(BuildContext context) {
-    return Container(
-      color: const Color.fromARGB(255, 80, 80, 80),
-      child: Center(
-        child: Text(
-          "Page Number 4",
-          style: TextStyle(
-            color: const Color.fromARGB(255, 255, 123, 0),
-            fontSize: 45,
-            fontWeight: FontWeight.w500,
-          ),
-        ),
-      ),
-    );
-  }
-}
-
-class NextScreen extends StatelessWidget {
-  const NextScreen({Key? key}) : super(key: key);
+  const HomePage({Key? key, required this.name}) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-     backgroundColor: const Color.fromARGB(255, 80, 80, 80),
       appBar: AppBar(
-        leading: IconButton(onPressed: (){
-          print('back');
-          Navigator.pop(context);
-        }, 
-        icon: Icon(Icons.arrow_back,
-        color: Theme.of(context).primaryColor,
-        )
-        ),
-        title: Text(
-          "IC Robotics Scouting",
-          style: TextStyle(
-            color: Theme.of(context).primaryColor,
-            fontSize: 25,
-            fontWeight: FontWeight.w600,
+        title: Text('Welcome $name'),
+        actions: [
+          IconButton(
+            icon: const Icon(Icons.logout),
+            onPressed: () {
+              Navigator.pop(context); // Logout action
+            },
           ),
-        ),
-        centerTitle: true,
-        backgroundColor: const Color.fromARGB(255, 80, 80, 80),
-      ), 
-      body: Row(
-        mainAxisAlignment: MainAxisAlignment.center,
-        children: [
-          Text(
-                      "Starting Position",
-                      style: TextStyle(
-                        color: const Color.fromARGB(255, 255, 123, 0),
-                        fontSize: 35,
-                        fontWeight: FontWeight.w500,
-                      ),
-                    ),
         ],
       ),
-
-      );
+      body: Center(
+        child: Column(
+          mainAxisAlignment: MainAxisAlignment.center,
+          children: [
+            const Text('Select a page to navigate to:'),
+            const SizedBox(height: 20),
+            ElevatedButton(
+              onPressed: () {
+                Navigator.push(
+                  context,
+                  MaterialPageRoute(builder: (context) => const PageOne()),
+                );
+              },
+              child: const Text('Page One'),
+            ),
+            const SizedBox(height: 10),
+            ElevatedButton(
+              onPressed: () {
+                Navigator.push(
+                  context,
+                  MaterialPageRoute(builder: (context) => const PageTwo()),
+                );
+              },
+              child: const Text('Page Two'),
+            ),
+            const SizedBox(height: 10),
+            ElevatedButton(
+              onPressed: () {
+                Navigator.push(
+                  context,
+                  MaterialPageRoute(builder: (context) => const PageThree()),
+                );
+              },
+              child: const Text('Page Three'),
+            ),
+          ],
+        ),
+      ),
+    );
   }
 }
 
+// Define three different pages
+class PageOne extends StatelessWidget {
+  const PageOne({Key? key}) : super(key: key);
 
+  @override
+  Widget build(BuildContext context) {
+    return Scaffold(
+      appBar: AppBar(title: const Text('Page One')),
+      body: const Center(child: Text('Content of Page One')),
+    );
+  }
+}
+
+class PageTwo extends StatelessWidget {
+  const PageTwo({Key? key}) : super(key: key);
+
+  @override
+  Widget build(BuildContext context) {
+    return Scaffold(
+      appBar: AppBar(title: const Text('Page Two')),
+      body: const Center(child: Text('Content of Page Two')),
+    );
+  }
+}
+
+class PageThree extends StatelessWidget {
+  const PageThree({Key? key}) : super(key: key);
+
+  @override
+  Widget build(BuildContext context) {
+    return Scaffold(
+      appBar: AppBar(title: const Text('Page Three')),
+      body: const Center(child: Text('Content of Page Three')),
+    );
+  }
+}
