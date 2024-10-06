@@ -70,7 +70,7 @@ class _HomePageState extends State<HomePage> {
 
   Container buildMyNavBar(BuildContext context) {
     return Container(
-      height: 60,
+      height: 80,  // Increased height to fit text
       decoration: BoxDecoration(
         color: Theme.of(context).primaryColor,
         borderRadius: const BorderRadius.only(
@@ -81,81 +81,129 @@ class _HomePageState extends State<HomePage> {
       child: Row(
         mainAxisAlignment: MainAxisAlignment.spaceAround,
         children: [
-          IconButton(
-            enableFeedback: false,
-            onPressed: () {
-              setState(() {
-                globals.pageIndex = 0;
-              });
-            },
-            icon: globals.pageIndex == 0
-                ? const Icon(
-                    Icons.home_filled,
-                    color: Colors.white,
-                    size: 35,
-                  )
-                : const Icon(
-                    Icons.home_outlined,
-                    color: Colors.white,
-                    size: 35,
-                  ),
+          Column(
+            mainAxisAlignment: MainAxisAlignment.center,
+            children: [
+              IconButton(
+                enableFeedback: false,
+                onPressed: () {
+                  setState(() {
+                    globals.pageIndex = 0;
+                  });
+                },
+                icon: globals.pageIndex == 0
+                    ? const Icon(
+                        Icons.home_filled,
+                        color: Colors.white,
+                        size: 35,
+                      )
+                    : const Icon(
+                        Icons.home_outlined,
+                        color: Colors.white,
+                        size: 35,
+                      ),
+              ),
+              const Text(
+                "Home",
+                style: TextStyle(
+                  color: Colors.white,
+                  fontSize: 12,
+                ),
+              ),
+            ],
           ),
-          IconButton(
-            enableFeedback: false,
-            onPressed: () {
-              setState(() {
-                globals.pageIndex = 1;
-              });
-            },
-            icon: globals.pageIndex == 1
-                ? const Icon(
-                    Icons.camera_alt_rounded,
-                    color: Colors.white,
-                    size: 35,
-                  )
-                : const Icon(
-                    Icons.camera_alt_outlined,
-                    color: Colors.white,
-                    size: 35,
-                  ),
+          Column(
+            mainAxisAlignment: MainAxisAlignment.center,
+            children: [
+              IconButton(
+                enableFeedback: false,
+                onPressed: () {
+                  setState(() {
+                    globals.pageIndex = 1;
+                  });
+                },
+                icon: globals.pageIndex == 1
+                    ? const Icon(
+                        Icons.camera_alt_rounded,
+                        color: Colors.white,
+                        size: 35,
+                      )
+                    : const Icon(
+                        Icons.camera_alt_outlined,
+                        color: Colors.white,
+                        size: 35,
+                      ),
+              ),
+              const Text(
+                "Pit",
+                style: TextStyle(
+                  color: Colors.white,
+                  fontSize: 12,
+                ),
+              ),
+            ],
           ),
-          IconButton(
-            enableFeedback: false,
-            onPressed: () {
-              setState(() {
-                globals.pageIndex = 2;
-              });
-            },
-            icon: globals.pageIndex == 2
-                ? const Icon(
-                    Icons.games_rounded,
-                    color: Colors.white,
-                    size: 35,
-                  )
-                : const Icon(
-                    Icons.games_outlined,
-                    color: Colors.white,
-                    size: 35,
-                  ),
+          Column(
+            mainAxisAlignment: MainAxisAlignment.center,
+            children: [
+              IconButton(
+                enableFeedback: false,
+                onPressed: () {
+                  setState(() {
+                    globals.pageIndex = 2;
+                  });
+                },
+                icon: globals.pageIndex == 2
+                    ? const Icon(
+                        Icons.games_rounded,
+                        color: Colors.white,
+                        size: 35,
+                      )
+                    : const Icon(
+                        Icons.games_outlined,
+                        color: Colors.white,
+                        size: 35,
+                      ),
+              ),
+              const Text(
+                "Match",
+                style: TextStyle(
+                  color: Colors.white,
+                  fontSize: 12,
+                ),
+              ),
+            ],
           ),
-          IconButton(
-            enableFeedback: false,
-            onPressed: () {
-              setState(() {
-                globals.pageIndex = 3;
-              });
-            },
-            icon: globals.pageIndex == 3
-                ? const Icon(
-                    Icons.list,
-                    color: Colors.white,
-                    size: 35,
-                  )
-                : const Icon(
-                    Icons.list_outlined,
-                    color: Colors.white,
-                    size: 35,
-                  ),
+          Column(
+            mainAxisAlignment: MainAxisAlignment.center,
+            children: [
+              IconButton(
+                enableFeedback: false,
+                onPressed: () {
+                  setState(() {
+                    globals.pageIndex = 3;
+                  });
+                },
+                icon: globals.pageIndex == 3
+                    ? const Icon(
+                        Icons.person,
+                        color: Colors.white,
+                        size: 35,
+                      )
+                    : const Icon(
+                        Icons.person_outline,
+                        color: Colors.white,
+                        size: 35,
+                      ),
+              ),
+              const Text(
+                "Scouts/Data",
+                style: TextStyle(
+                  color: Colors.white,
+                  fontSize: 12,
+                ),
+              ),
+            ],
           ),
         ],
       ),
@@ -474,4 +522,5 @@ class NextScreen extends StatelessWidget {
       );
   }
 }
+
 
