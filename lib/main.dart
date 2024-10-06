@@ -318,7 +318,7 @@ class _main_pageState extends State<main_page> {
                   print('Blue button pressed');
                 }, 
                 style: ButtonStyle(
-                  backgroundColor: MaterialStateProperty.all(Colors.blue),
+                  backgroundColor: MaterialStateProperty.all(Colors.pink),
                 ),
                 child: Text(
                   'Blue',
