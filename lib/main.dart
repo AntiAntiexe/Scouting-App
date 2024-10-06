@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'other/globals.dart' as globals;
 
 void main() {
   runApp(const MyApp());
@@ -7,6 +8,7 @@ void main() {
 class MyApp extends StatelessWidget {
   const MyApp({Key? key}) : super(key: key);
 
+  // This widget is the root of your application.
   @override
   Widget build(BuildContext context) {
     return MaterialApp(
@@ -31,10 +33,10 @@ class HomePage extends StatefulWidget {
 }
 
 class _HomePageState extends State<HomePage> {
-  int pageIndex = 0;
+  //int pageIndex = 0;
 
   final pages = [
-    const MainPage(),
+    const main_page(),
     const Page2(),
     const Page3(),
     const Page4(),
@@ -50,7 +52,7 @@ class _HomePageState extends State<HomePage> {
           color: Theme.of(context).primaryColor,
         ),
         title: Text(
-          "IC Scouting",
+          "IC Robotics Scouting",
           style: TextStyle(
             color: Theme.of(context).primaryColor,
             fontSize: 25,
@@ -60,7 +62,8 @@ class _HomePageState extends State<HomePage> {
         centerTitle: true,
         backgroundColor: const Color.fromARGB(255, 80, 80, 80),
       ),
-      body: pages[pageIndex],
+      body: SafeArea(child: pages[globals.pageIndex],
+      ), 
       bottomNavigationBar: buildMyNavBar(context),
     );
   }
@@ -85,10 +88,10 @@ class _HomePageState extends State<HomePage> {
                 enableFeedback: false,
                 onPressed: () {
                   setState(() {
-                    pageIndex = 0;
+                    globals.pageIndex = 0;
                   });
                 },
-                icon: pageIndex == 0
+                icon: globals.pageIndex == 0
                     ? const Icon(
                         Icons.home_filled,
                         color: Colors.white,
@@ -116,10 +119,10 @@ class _HomePageState extends State<HomePage> {
                 enableFeedback: false,
                 onPressed: () {
                   setState(() {
-                    pageIndex = 1;
+                    globals.pageIndex = 1;
                   });
                 },
-                icon: pageIndex == 1
+                icon: globals.pageIndex == 1
                     ? const Icon(
                         Icons.camera_alt_rounded,
                         color: Colors.white,
@@ -147,10 +150,10 @@ class _HomePageState extends State<HomePage> {
                 enableFeedback: false,
                 onPressed: () {
                   setState(() {
-                    pageIndex = 2;
+                    globals.pageIndex = 2;
                   });
                 },
-                icon: pageIndex == 2
+                icon: globals.pageIndex == 2
                     ? const Icon(
                         Icons.games_rounded,
                         color: Colors.white,
@@ -178,10 +181,10 @@ class _HomePageState extends State<HomePage> {
                 enableFeedback: false,
                 onPressed: () {
                   setState(() {
-                    pageIndex = 3;
+                    globals.pageIndex = 3;
                   });
                 },
-                icon: pageIndex == 3
+                icon: globals.pageIndex == 3
                     ? const Icon(
                         Icons.person,
                         color: Colors.white,
@@ -208,24 +211,207 @@ class _HomePageState extends State<HomePage> {
   }
 }
 
-class MainPage extends StatelessWidget {
-  const MainPage({Key? key}) : super(key: key);
+class main_page extends StatefulWidget {
+  const main_page({Key? key}) : super(key: key);
 
+  @override
+  State<main_page> createState() => _main_pageState();
+}
+
+class _main_pageState extends State<main_page> {
   @override
   Widget build(BuildContext context) {
     return Container(
       color: const Color.fromARGB(255, 80, 80, 80),
-      child: Center(
-        child: Text(
-          "Page Number 1",
-          style: TextStyle(
-            color: const Color.fromARGB(255, 255, 123, 0),
-            fontSize: 45,
-            fontWeight: FontWeight.w500,
+      child: 
+      Column(
+        children: [
+          Row(
+            mainAxisAlignment: MainAxisAlignment.spaceAround,
+            children: [
+              Text(
+                  "Enter Team Information",
+                  style: TextStyle(
+                    color: const Color.fromARGB(255, 255, 123, 0),
+                    fontSize: 35,
+                    fontWeight: FontWeight.w500,
+                  ),
+                ),
+            ],
           ),
-        ),
+
+          Padding(
+            padding: const EdgeInsets.all(8.0),
+            child: Row(
+              mainAxisAlignment: MainAxisAlignment.spaceAround,
+              children: [
+                
+                Expanded(
+                  child: TextField(
+                cursorColor: Colors.black,
+                style: TextStyle(
+                  color: Colors.white
+                ),
+                decoration: InputDecoration(
+                  filled: false,
+                  fillColor: Colors.blueAccent,
+                  hintText: 'Input Scout Name',
+                  hintStyle: TextStyle(
+                    color: Colors.white,
+                  ),
+                  focusedBorder: OutlineInputBorder(
+                      borderSide: BorderSide(color: Colors.grey, width: 2.0),
+                  ),
+                  enabledBorder: OutlineInputBorder(
+                      borderSide: BorderSide(color: Colors.black, width: 2.0),
+                  ),
+                  border: OutlineInputBorder(
+                    borderRadius: BorderRadius.circular(50)
+                  ),
+                ),
+              ),
+              ),
+                
+                
+                SizedBox(width: 20,),
+                Expanded(
+                  child: TextField(
+                cursorColor: Colors.black,
+                style: TextStyle(
+                  color: Colors.white
+                ),
+                decoration: InputDecoration(
+                  filled: false,
+                  fillColor: Colors.blueAccent,
+                  hintText: 'Input Team Number',
+                  hintStyle: TextStyle(
+                    color: Colors.white,
+                  ),
+                  focusedBorder: OutlineInputBorder(
+                      borderSide: BorderSide(color: Colors.grey, width: 2.0),
+                  ),
+                  enabledBorder: OutlineInputBorder(
+                      borderSide: BorderSide(color: Colors.black, width: 2.0),
+                  ),
+                  border: OutlineInputBorder(
+                    borderRadius: BorderRadius.circular(50)
+                  ),
+                ),
+              ),
+                  ),
+                
+              
+                SizedBox(width: 20,),
+            
+                Expanded(
+                  
+                  child: TextField(
+                cursorColor: Colors.black,
+                style: TextStyle(
+                  color: Colors.white
+                ),
+                decoration: InputDecoration(
+                  filled: false,
+                  fillColor: Colors.blueAccent,
+                  hintText: 'Game Number',
+                  hintStyle: TextStyle(
+                    color: Colors.white,
+                  ),
+                  focusedBorder: OutlineInputBorder(
+                      borderSide: BorderSide(color: Colors.grey, width: 2.0),
+                  ),
+                  enabledBorder: OutlineInputBorder(
+                      borderSide: BorderSide(color: Colors.black, width: 2.0),
+                  ),
+                  border: OutlineInputBorder(
+                    borderRadius: BorderRadius.circular(50)
+                  ),
+                ),
+              ),
+                ),
+                
+              ],
+            ),
+          ),
+          Padding(
+            padding: const EdgeInsets.all(8.0),
+            child: Row(
+              children: [
+                Expanded(
+                  child: ElevatedButton(onPressed: () {
+                  print('Red button pressed');
+                }, 
+                style: ButtonStyle(
+                  backgroundColor: MaterialStateProperty.all(Colors.red),
+                ),
+                child: Text(
+                  'Red',
+                  style: TextStyle(
+                    color: const Color.fromARGB(255, 88, 52, 18),
+                  )
+                  ),
+                ),
+                  ),
+              ],
+            ),
+          ),
+          
+          SizedBox(width: 20,),
+          Padding(
+            padding: const EdgeInsets.all(8.0),
+            child: Row(
+              children: [
+                Expanded(
+                  child: ElevatedButton(onPressed: () {
+                  print('Blue button pressed');
+                }, 
+                style: ButtonStyle(
+                  backgroundColor: MaterialStateProperty.all(Colors.blue),
+                ),
+                child: Text(
+                  'Blue',
+                  style: TextStyle(
+                    color: const Color.fromARGB(255, 88, 52, 18),
+                  )
+                  ),
+                ),
+                ),
+              ],
+            ),
+          ),
+          Expanded(
+            child: SizedBox(height: 20,),
+            ),
+          
+          Padding(
+            padding: const EdgeInsets.all(8.0),
+            child: Row(
+              children: [
+                Expanded(
+                  child: ElevatedButton(onPressed: () { 
+                    Navigator.push(
+              context,
+              MaterialPageRoute(builder: (context) => const NextScreen()),
+                    );
+                }, 
+                
+                style: ButtonStyle(
+                  backgroundColor: MaterialStateProperty.all(const Color.fromARGB(255, 255, 123, 0)),
+                ),
+                child: Text(
+                  'Next',
+                  style: TextStyle(
+                    color: const Color.fromARGB(255, 88, 52, 18),
+                  )
+                  ),
+                ),
+                ),
+              ],
+            ),
+          )  
+        ],
       ),
-    );
+      );
   }
 }
 
@@ -291,3 +477,50 @@ class Page4 extends StatelessWidget {
     );
   }
 }
+
+class NextScreen extends StatelessWidget {
+  const NextScreen({Key? key}) : super(key: key);
+
+  @override
+  Widget build(BuildContext context) {
+    return Scaffold(
+     backgroundColor: const Color.fromARGB(255, 80, 80, 80),
+      appBar: AppBar(
+        leading: IconButton(onPressed: (){
+          print('back');
+          Navigator.pop(context);
+        }, 
+        icon: Icon(Icons.arrow_back,
+        color: Theme.of(context).primaryColor,
+        )
+        ),
+        title: Text(
+          "IC Robotics Scouting",
+          style: TextStyle(
+            color: Theme.of(context).primaryColor,
+            fontSize: 25,
+            fontWeight: FontWeight.w600,
+          ),
+        ),
+        centerTitle: true,
+        backgroundColor: const Color.fromARGB(255, 80, 80, 80),
+      ), 
+      body: Row(
+        mainAxisAlignment: MainAxisAlignment.center,
+        children: [
+          Text(
+                      "Starting Position",
+                      style: TextStyle(
+                        color: const Color.fromARGB(255, 255, 123, 0),
+                        fontSize: 35,
+                        fontWeight: FontWeight.w500,
+                      ),
+                    ),
+        ],
+      ),
+
+      );
+  }
+}
+
+
