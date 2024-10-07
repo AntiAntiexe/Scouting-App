@@ -10,7 +10,7 @@ class MyApp extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return MaterialApp(
-      title: 'IC Robotics Login',
+      title: 'IC Scouting Login',
       theme: ThemeData(
         primaryColor: Colors.orange,
         scaffoldBackgroundColor: const Color.fromARGB(255, 80, 80, 80),
@@ -138,7 +138,7 @@ class HomePage extends StatelessWidget {
                   MaterialPageRoute(builder: (context) => const PageOne()),
                 );
               },
-              child: const Text('Page One'),
+              child: const Text('Pit'),
             ),
             const SizedBox(height: 10),
             ElevatedButton(
@@ -148,7 +148,7 @@ class HomePage extends StatelessWidget {
                   MaterialPageRoute(builder: (context) => const PageTwo()),
                 );
               },
-              child: const Text('Page Two'),
+              child: const Text('Match'),
             ),
             const SizedBox(height: 10),
             ElevatedButton(
@@ -158,7 +158,7 @@ class HomePage extends StatelessWidget {
                   MaterialPageRoute(builder: (context) => const PageThree()),
                 );
               },
-              child: const Text('Page Three'),
+              child: const Text('Data'),
             ),
           ],
         ),
@@ -174,8 +174,8 @@ class PageOne extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: AppBar(title: const Text('Page One')),
-      body: const Center(child: Text('Content of Page One')),
+      appBar: AppBar(title: const Text('Pit')),
+      body: const Center(child: Text('Pit')),
     );
   }
 }
@@ -186,8 +186,8 @@ class PageTwo extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: AppBar(title: const Text('Page Two')),
-      body: const Center(child: Text('Content of Page Two')),
+      appBar: AppBar(title: const Text('Match')),
+      body: const Center(child: Text('Match')),
     );
   }
 }
@@ -198,8 +198,8 @@ class PageThree extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: AppBar(title: const Text('Page Three')),
-      body: const Center(child: Text('Content of Page Three')),
+      appBar: AppBar(title: const Text('Data')),
+      body: const Center(child: Text('Data')),
     );
   }
 }
