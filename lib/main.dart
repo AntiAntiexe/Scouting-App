@@ -469,14 +469,212 @@ class _MechanismDisplaySection extends StatelessWidget {
   }
 }
 
-class PageTwo extends StatelessWidget {
+class PageTwo extends StatefulWidget {
   const PageTwo({Key? key}) : super(key: key);
+
+  @override
+  _PageTwoState createState() => _PageTwoState();
+}
+
+class _PageTwoState extends State<PageTwo> {
+  // Define action lists for each game period
+  final List<String> autonomousActions = [
+    'Scored Speaker',
+    'Scored Amp',
+    'Crossed Line',
+    'Failed to Score'
+  ];
+
+  final List<String> teleopActions = [
+    'Scored Speaker',
+    'Scored Amp',
+    'Trapped',
+    'Passed',
+    'Intaked',
+    'Failed to Score'
+  ];
+
+  final List<String> endgameActions = [
+    'Climbed',
+    'Trapped',
+    'Failed'
+  ];
+
+  final Map<String, int> actionCounts = {};
+  String _teamNumber = ''; // Team number input
+
+  @override
+  void initState() {
+    super.initState();
+    // Initialize action counts to zero for all actions
+    for (var action in autonomousActions) {
+      actionCounts[action] = 0;
+    }
+    for (var action in teleopActions) {
+      actionCounts[action] = 0;
+    }
+    for (var action in endgameActions) {
+      actionCounts[action] = 0;
+    }
+  }
+
+  void _incrementAction(String action) {
+    setState(() {
+      actionCounts[action] = (actionCounts[action] ?? 0) + 1;
+    });
+  }
+
+  void _decrementAction(String action) {
+    setState(() {
+      actionCounts[action] = (actionCounts[action] ?? 0) > 0
+          ? actionCounts[action]! - 1
+          : 0;
+    });
+  }
+
+  Future<void> _saveMatchData() async {
+    final directory = await getApplicationDocumentsDirectory();
+    final file = File('${directory.path}/${_teamNumber}_match.txt');
+
+    String matchData = 'Team Number: $_teamNumber\nMatch Actions:\n';
+
+    // Append autonomous action counts
+    matchData += '\nAutonomous Actions:\n';
+    for (var action in autonomousActions) {
+      matchData += '$action: ${actionCounts[action]}\n';
+    }
+
+    // Append teleop action counts
+    matchData += '\nTeleop Actions:\n';
+    for (var action in teleopActions) {
+      matchData += '$action: ${actionCounts[action]}\n';
+    }
+
+    // Append endgame action counts
+    matchData += '\nEndgame Actions:\n';
+    for (var action in endgameActions) {
+      matchData += '$action: ${actionCounts[action]}\n';
+    }
+
+    // Save match data to the file
+    await file.writeAsString(matchData);
+    ScaffoldMessenger.of(context).showSnackBar(
+      SnackBar(content: Text('Match data saved to: ${file.path}')),
+    );
+  }
 
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: AppBar(title: const Text('Match')),
-      body: const Center(child: Text('Match')),
+      appBar: AppBar(title: const Text('Match Scouting')),
+      body: Padding(
+        padding: const EdgeInsets.all(16.0),
+        child: SingleChildScrollView(
+          child: Column(
+            crossAxisAlignment: CrossAxisAlignment.stretch,
+            children: [
+              TextField(
+                decoration: const InputDecoration(
+                  labelText: 'Team Number',
+                  border: OutlineInputBorder(),
+                ),
+                onChanged: (value) {
+                  _teamNumber = value;
+                },
+              ),
+              const SizedBox(height: 20),
+              const Text(
+                'Autonomous Actions:',
+                style: TextStyle(fontSize: 16, fontWeight: FontWeight.bold),
+              ),
+              const SizedBox(height: 10),
+              ListView.builder(
+                shrinkWrap: true,
+                itemCount: autonomousActions.length,
+                itemBuilder: (context, index) {
+                  final action = autonomousActions[index];
+                  return Row(
+                    mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                    children: [
+                      Expanded(child: Text(action)),
+                      IconButton(
+                        icon: const Icon(Icons.add),
+                        onPressed: () => _incrementAction(action),
+                      ),
+                      Text('${actionCounts[action]}'),
+                      IconButton(
+                        icon: const Icon(Icons.remove),
+                        onPressed: () => _decrementAction(action),
+                      ),
+                    ],
+                  );
+                },
+              ),
+              const SizedBox(height: 20),
+              const Text(
+                'Teleop Actions:',
+                style: TextStyle(fontSize: 16, fontWeight: FontWeight.bold),
+              ),
+              const SizedBox(height: 10),
+              ListView.builder(
+                shrinkWrap: true,
+                itemCount: teleopActions.length,
+                itemBuilder: (context, index) {
+                  final action = teleopActions[index];
+                  return Row(
+                    mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                    children: [
+                      Expanded(child: Text(action)),
+                      IconButton(
+                        icon: const Icon(Icons.add),
+                        onPressed: () => _incrementAction(action),
+                      ),
+                      Text('${actionCounts[action]}'),
+                      IconButton(
+                        icon: const Icon(Icons.remove),
+                        onPressed: () => _decrementAction(action),
+                      ),
+                    ],
+                  );
+                },
+              ),
+              const SizedBox(height: 20),
+              const Text(
+                'Endgame Actions:',
+                style: TextStyle(fontSize: 16, fontWeight: FontWeight.bold),
+              ),
+              const SizedBox(height: 10),
+              ListView.builder(
+                shrinkWrap: true,
+                itemCount: endgameActions.length,
+                itemBuilder: (context, index) {
+                  final action = endgameActions[index];
+                  return Row(
+                    mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                    children: [
+                      Expanded(child: Text(action)),
+                      IconButton(
+                        icon: const Icon(Icons.add),
+                        onPressed: () => _incrementAction(action),
+                      ),
+                      Text('${actionCounts[action]}'),
+                      IconButton(
+                        icon: const Icon(Icons.remove),
+                        onPressed: () => _decrementAction(action),
+                      ),
+                    ],
+                  );
+                },
+              ),
+              const SizedBox(height: 20),
+              ElevatedButton(
+                onPressed: _saveMatchData,
+                child: const Text('Save Match Data'),
+              ),
+            ],
+          ),
+        ),
+      ),
     );
   }
 }
