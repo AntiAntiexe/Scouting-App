@@ -41,8 +41,8 @@ class LoginPage extends StatelessWidget {
     String password = _passwordController.text.trim();
 
     // Validation logic
-    if ((name == 'Jared' && id == '1' && password == 'icrobotics5584') || 
-        (name == 'Anton' && id == '2' && password == 'icrobotics5584')) {
+    if ((name == 'Jared' && id == '1' && password == '1') || 
+        (name == 'Anton' && id == '2' && password == '1')) {
       // Successful login, navigate to the home page
       Navigator.pushReplacement(
         context,
@@ -173,12 +173,15 @@ class HomePage extends StatelessWidget {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
+        
         title: Text('Welcome $name'),
         actions: [
           IconButton(
             icon: const Icon(Icons.logout),
             onPressed: () {
-              Navigator.pop(context); // Logout action
+              Navigator.pushReplacement(context,
+        MaterialPageRoute(builder: (context) => LoginPage()),
+      );
             },
           ),
         ],
