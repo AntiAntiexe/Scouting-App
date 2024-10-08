@@ -1,4 +1,7 @@
 import 'package:flutter/material.dart';
+import 'package:image_picker/image_picker.dart';
+import 'dart:io';
+import 'package:path_provider/path_provider.dart';
 
 void main() {
   runApp(const MyApp());
@@ -148,7 +151,7 @@ class LoginPage extends StatelessWidget {
               ElevatedButton(
                 onPressed: () => _login(context),
                 style: ButtonStyle(
-                  backgroundColor: MaterialStateProperty.all(Colors.white),
+                  backgroundColor: WidgetStateProperty.all(Colors.white),
                 ),
                 child: const Text(
                   'Login',
@@ -228,15 +231,240 @@ class HomePage extends StatelessWidget {
   }
 }
 
-// Define three different pages
-class PageOne extends StatelessWidget {
+class PageOne extends StatefulWidget {
   const PageOne({Key? key}) : super(key: key);
+
+  @override
+  _PageOneState createState() => _PageOneState();
+}
+
+class _PageOneState extends State<PageOne> {
+  final TextEditingController _teamController = TextEditingController();
+  String? _teamNumber;
+  List<bool> _selectedMechanisms = List.generate(7, (index) => false);
+  late String _imagePath;
+
+  @override
+  void initState() {
+    super.initState();
+    _imagePath = '';
+  }
 
   @override
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(title: const Text('Pit')),
-      body: const Center(child: Text('Pit')),
+      body: Column(
+        children: [
+          _TeamEntryForm(controller: _teamController, onSubmit: _handleTeamSubmission),
+          Expanded(
+            child: Row(
+              children: [
+                Expanded(
+                  child: _ImageUploadSection(onImageSelected: _handleImageSelection),
+                ),
+                const VerticalDivider(),
+                Expanded(
+                  child: _MechanismDisplaySection(
+                    selectedMechanisms: _selectedMechanisms,
+                    onChanged: _handleMechanismChange,
+                  ),
+                ),
+              ],
+            ),
+          ),
+          ElevatedButton(
+            onPressed: _saveData,
+            child: const Text('Submit'),
+          ),
+        ],
+      ),
+    );
+  }
+
+  void _handleTeamSubmission() {
+    setState(() {
+      _teamNumber = _teamController.text;
+      if (_teamNumber!.length > 4) {
+        ScaffoldMessenger.of(context).showSnackBar(
+          const SnackBar(content: Text('Please enter a valid team number.')),
+        );
+      } else {
+        ScaffoldMessenger.of(context).showSnackBar(
+          SnackBar(content: Text('Scouting for Team: $_teamNumber')),
+        );
+      }
+    });
+  }
+
+  Future<void> _handleImageSelection(String imagePath) async {
+    setState(() {
+      _imagePath = imagePath;
+    });
+    ScaffoldMessenger.of(context).showSnackBar(
+      SnackBar(content: Text('Uploaded: $_imagePath')),
+    );
+  }
+
+  void _handleMechanismChange(int index, bool value) {
+    setState(() {
+      _selectedMechanisms[index] = value;
+    });
+  }
+
+  Future<void> _saveData() async {
+    final directory = await getApplicationDocumentsDirectory();
+    final file = File('${directory.path}/$_teamNumber.txt'); // Save as '<_teamNumber>.txt'
+
+    String data = 'Team Number: $_teamNumber\nMechanisms:\n';
+    const mechanismNames = [
+      'Can Shoot',
+      'Can Climb',
+      'Can Trap',
+      'Can Intake',
+      'Can Drive',
+      'Can Pass',
+      'Can Amp',
+    ];
+
+    // Record selected mechanisms
+    for (int i = 0; i < mechanismNames.length; i++) {
+      if (_selectedMechanisms[i]) {
+        data += '- ${mechanismNames[i]}\n';
+      }
+    }
+
+    // Handle image copying and path update
+    String savedImagePath = '';
+    if (_imagePath.isNotEmpty) {
+      final imageFile = File(_imagePath);
+      savedImagePath = '${directory.path}/$_teamNumber.jpg'; // Path for the saved image
+      final imageCopy = File(savedImagePath);
+      await imageFile.copy(imageCopy.path); // Copy image to documents directory
+      data += 'Image Path: $savedImagePath\n'; // Store the saved image path in scouting data
+      ScaffoldMessenger.of(context).showSnackBar(
+        const SnackBar(content: Text('Image copied to documents.')),
+      );
+    }
+
+    // Write scouting data to the file
+    await file.writeAsString(data);
+    ScaffoldMessenger.of(context).showSnackBar(
+      const SnackBar(content: Text('Scouting data saved.')),
+    );
+  }
+}
+
+class _TeamEntryForm extends StatelessWidget {
+  final TextEditingController controller;
+  final VoidCallback onSubmit;
+
+  const _TeamEntryForm({Key? key, required this.controller, required this.onSubmit}) : super(key: key);
+
+  @override
+  Widget build(BuildContext context) {
+    return Padding(
+      padding: const EdgeInsets.all(16.0),
+      child: Column(
+        children: [
+          TextField(
+            controller: controller,
+            decoration: const InputDecoration(
+              labelText: 'Enter FRC Team Number',
+              border: OutlineInputBorder(),
+            ),
+            keyboardType: TextInputType.number,
+            maxLength: 4,
+          ),
+          const SizedBox(height: 16),
+          ElevatedButton(
+            onPressed: onSubmit,
+            child: const Text('Submit Team Number'),
+          ),
+        ],
+      ),
+    );
+  }
+}
+
+class _ImageUploadSection extends StatelessWidget {
+  final Function(String) onImageSelected;
+
+  const _ImageUploadSection({Key? key, required this.onImageSelected}) : super(key: key);
+
+  @override
+  Widget build(BuildContext context) {
+    final ImagePicker _picker = ImagePicker();
+
+    return Padding(
+      padding: const EdgeInsets.all(16.0),
+      child: Column(
+        children: [
+          const Text(
+            'Upload Robot Pictures',
+            style: TextStyle(fontSize: 20, fontWeight: FontWeight.bold),
+          ),
+          const SizedBox(height: 10),
+          ElevatedButton(
+            onPressed: () async {
+              final pickedFile = await _picker.pickImage(source: ImageSource.gallery);
+              if (pickedFile != null) {
+                onImageSelected(pickedFile.path);
+              }
+            },
+            child: const Text('Select Image'),
+          ),
+        ],
+      ),
+    );
+  }
+}
+
+class _MechanismDisplaySection extends StatelessWidget {
+  final List<bool> selectedMechanisms;
+  final Function(int, bool) onChanged;
+
+  const _MechanismDisplaySection({Key? key, required this.selectedMechanisms, required this.onChanged}) : super(key: key);
+
+  @override
+  Widget build(BuildContext context) {
+    const mechanismNames = [
+      'Can Shoot',
+      'Can Climb',
+      'Can Trap',
+      'Can Intake',
+      'Can Drive',
+      'Can Pass',
+      'Can Amp',
+    ];
+
+    return Padding(
+      padding: const EdgeInsets.all(16.0),
+      child: Column(
+        children: [
+          const Text(
+            'FRC Mechanisms for 2024 Game: Crescendo',
+            style: TextStyle(fontSize: 20, fontWeight: FontWeight.bold),
+          ),
+          const SizedBox(height: 10),
+          ...List.generate(mechanismNames.length, (index) {
+            return Row(
+              mainAxisAlignment: MainAxisAlignment.spaceBetween,
+              children: [
+                Expanded(child: Text(mechanismNames[index])),
+                Checkbox(
+                  value: selectedMechanisms[index],
+                  onChanged: (bool? value) {
+                    if (value != null) {
+                      onChanged(index, value);
+                    }
+                  },
+                ),
+              ],
+            );
+          }),
+        ],
+      ),
     );
   }
 }
