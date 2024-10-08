@@ -76,27 +76,85 @@ class LoginPage extends StatelessWidget {
               // Name Input Field
               TextField(
                 controller: _nameController,
-                decoration: const InputDecoration(labelText: 'Enter Name (Jared or Anton)'),
+                decoration: InputDecoration(
+                  labelText: 'Enter Name (Jared or Anton)', 
+                  labelStyle: TextStyle(
+                    color: Colors.black87,
+                  ),
+                  filled: false,
+                  hintStyle: TextStyle(
+                    color: Colors.white,
+                  ),
+                  focusedBorder: OutlineInputBorder(
+                      borderSide: BorderSide(color: Colors.grey, width: 2.0),
+                  ),
+                  enabledBorder: OutlineInputBorder(
+                      borderSide: BorderSide(color: Colors.black, width: 2.0),
+                  ),
+                  border: OutlineInputBorder(
+                    borderRadius: BorderRadius.circular(50)
+                  ),
+                ),
               ),
               const SizedBox(height: 20),
               // ID Input Field
               TextField(
                 controller: _idController,
-                decoration: const InputDecoration(labelText: 'Enter ID (1 or 2)'),
+                decoration: InputDecoration(
+                  labelText: 'Enter ID (1 or 2)',
+                  labelStyle: TextStyle(
+                    color: Colors.black87,
+                  ),
+                  filled: false,
+                  hintStyle: TextStyle(
+                    color: Colors.white,
+                  ),
+                  focusedBorder: OutlineInputBorder(
+                      borderSide: BorderSide(color: Colors.grey, width: 2.0),
+                  ),
+                  enabledBorder: OutlineInputBorder(
+                      borderSide: BorderSide(color: Colors.black, width: 2.0),
+                  ),
+                  border: OutlineInputBorder(
+                    borderRadius: BorderRadius.circular(50)
+                  ),
+                ),
                 keyboardType: TextInputType.number,
               ),
               const SizedBox(height: 20),
               // Password Input Field
               TextField(
                 controller: _passwordController,
-                decoration: const InputDecoration(labelText: 'Password'),
+                decoration: InputDecoration(
+                  labelText: 'Password',
+                  labelStyle: TextStyle(
+                    color: Colors.black87,
+                  ),
+                  filled: false,
+                  focusedBorder: OutlineInputBorder(
+                      borderSide: BorderSide(color: Colors.grey, width: 2.0),
+                  ),
+                  enabledBorder: OutlineInputBorder(
+                      borderSide: BorderSide(color: Colors.black, width: 2.0),
+                  ),
+                  border: OutlineInputBorder(
+                    borderRadius: BorderRadius.circular(50)
+                  ),
+                  ),
                 obscureText: true,
               ),
               const SizedBox(height: 20),
               // Login Button
               ElevatedButton(
                 onPressed: () => _login(context),
-                child: const Text('Login'),
+                style: ButtonStyle(
+                  backgroundColor: MaterialStateProperty.all(Colors.white),
+                ),
+                child: const Text(
+                  'Login',
+                  style: TextStyle(
+                    color: Colors.black,
+                  ),),
               ),
             ],
           ),
