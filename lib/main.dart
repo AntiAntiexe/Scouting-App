@@ -496,7 +496,7 @@ class _PageTwoState extends State<PageTwo> {
 
   final List<String> endgameActions = [
     'Climbed',
-    'Trapped',
+    'Parked',
     'Failed'
   ];
 
